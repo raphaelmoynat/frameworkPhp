@@ -36,4 +36,14 @@ class Sushi extends Model
         ]);
     }
 
+    public function delete(int $id):void{
+        $query = $this->pdo->prepare("DELETE FROM sushis WHERE id = :id");
+
+        $query->execute([
+            "id" => $id
+        ]);
+    }
+
+
+
 }

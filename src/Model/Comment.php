@@ -32,4 +32,14 @@ class Comment extends Model
             "sushiId"=>$sushiId
         ]);
     }
+
+    public function delete(int $sushiId):void
+    {
+
+        $query = $this->pdo->prepare("DELETE FROM comments WHERE sushi_id = :sushiId");
+        $query->execute([
+
+            "sushiId"=>$sushiId
+        ]);
+    }
 }

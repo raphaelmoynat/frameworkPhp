@@ -23,10 +23,27 @@ class CommentController
         $commentContent = $_POST['content'];
         $sushiId = $_POST['sushiId'];
 
-        $modelComment = new Comment();
+        $modelComment = new \Model\Comment();
 
         $modelComment->insert($commentContent, $sushiId);
 
         return header("Location: sushi.php?id=$sushiId");
+    }
+
+    public function delete(){
+        if(!isset($_GET['id']) || !ctype_digit($_GET['id']))
+        {
+            header('Location: index.php');
+        }
+
+        $id = $_GET['id'];
+
+        $modelComment = new \Model\Comment();
+        $comment = $modelComment->find($id);
+        $idSushi = $comment['sushi_id'];
+
+        $modelComment->delete($id);
+
+        header("Location: sushi.php?id=$idSushi");
     }
 }
