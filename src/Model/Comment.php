@@ -36,7 +36,7 @@ class Comment extends Model
     public function delete(int $sushiId):void
     {
 
-        $query = $this->pdo->prepare("DELETE FROM comments WHERE sushi_id = :sushiId");
+        $query = $this->pdo->prepare("DELETE FROM comments WHERE id = :sushiId");
         $query->execute([
 
             "sushiId"=>$sushiId
