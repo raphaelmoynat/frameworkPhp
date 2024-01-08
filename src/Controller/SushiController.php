@@ -2,20 +2,23 @@
 namespace App\Controller;
 
 
-use App\Model\Sushi;
-use App\Model\Comment;
-use Core\View\View;
 
-class SushiController
+use App\Repository\CommentRepository;
+use App\Repository\SushiRepository;
+use Core\Controller\Controller;
+
+
+
+class SushiController extends Controller
 {
     public function index()
     {
 
-        $modelSushi = new Sushi();
+        $modelSushi = new SushiRepository();
 
         $sushis = $modelSushi->findAll();
 
-        return View::render("sushi/index", [
+        return $this->render("sushi/index", [
             "pageTitle"=>"Les Sushis",
             "sushis"=>$sushis]);
 
@@ -26,20 +29,20 @@ class SushiController
     {
         if(!isset($_GET['id']) || !ctype_digit($_GET['id']))
         {
-            header("Location: index.php");
+            return $this->redirect();
         }
 
         $id = $_GET['id'];
 
-        $modelSushi = new Sushi();
+        $modelSushi = new SushiRepository();
 
         $sushi = $modelSushi->find($id);
 
-        $modelComment = new Comment();
+        $modelComment = new CommentRepository();
 
         $comments = $modelComment->findAllBySushi($id);
 
-        return \View::render('sushi/show', ["sushi"=>$sushi,
+        return $this->render('sushi/show', ["sushi"=>$sushi,
             "comments"=>$comments,
             "pageTitle"=> $sushi['poisson'] ]);
     }
@@ -53,18 +56,18 @@ class SushiController
             $description = $_POST['description'];
             $poisson = $_POST['poisson'];
 
-            $modelSushi = new Sushi();
+            $modelSushi = new SushiRepository();
 
             $modelSushi->insert($type, $description, $poisson);
 
-            header("Location: index.php");
+            return $this->redirect();
 
 
 
         }
 
 
-        return \View::render("sushi/create", ["pageTitle"=> "nouveau sushi"]);
+        return $this->render("sushi/create", ["pageTitle"=> "nouveau sushi"]);
     }
 
 
@@ -72,16 +75,16 @@ class SushiController
 
         if(!isset($_GET['id']) || !ctype_digit($_GET['id']))
         {
-            header('Location: index.php');
+            return $this->redirect();
         }
 
         $id = $_GET['id'];
 
-        $modelComment = new \Model\Sushi();
+        $modelComment = new SushiRepository();
 
         $modelComment->delete($id);
 
-        header('Location: index.php');
+        return $this->redirect();
     }
 
     public function edit(){
@@ -96,21 +99,21 @@ class SushiController
             $id = $_POST['id'];
 
 
-            $modelSushi = new \Model\Sushi();
+            $modelSushi = new SushiRepository();
 
             $modelSushi->update($type, $description, $poisson, $id);
 
-            header("Location: sushi.php?id=$id");
+            return $this->redirect();
 
         }
 
 
         $id = $_GET['id'];
 
-        $modelSushi = new \Model\Sushi();
+        $modelSushi = new SushiRepository();
         $sushi = $modelSushi->find($id);
 
-        return \View::render('sushi/edit', ["sushi"=>$sushi,
+        return $this->render('sushi/edit', ["sushi"=>$sushi,
             "pageTitle"=> $sushi['poisson'] ]);
     }
 

@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Model;
+namespace App\Repository;
 
-
-class Comment extends Model
+class CommentRepository extends Repository
 {
-
     protected string $tableName = "comments";
 
     public function findAllBySushi(int $id):array
@@ -29,16 +27,6 @@ class Comment extends Model
         $query = $this->pdo->prepare("INSERT INTO comments SET content = :content, sushi_id = :sushiId");
         $query->execute([
             "content"=>$content,
-            "sushiId"=>$sushiId
-        ]);
-    }
-
-    public function delete(int $sushiId):void
-    {
-
-        $query = $this->pdo->prepare("DELETE FROM comments WHERE id = :sushiId");
-        $query->execute([
-
             "sushiId"=>$sushiId
         ]);
     }
