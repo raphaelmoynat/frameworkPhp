@@ -1,7 +1,6 @@
 <?php
 
-namespace Model;
-require_once 'Model.php';
+namespace App\Model;
 
 class Sushi extends Model
 {

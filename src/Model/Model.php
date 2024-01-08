@@ -1,7 +1,7 @@
 <?php
-namespace Model;
+namespace App\Model;
 
-require_once "../core/Database/PDOMySQL.php";
+
 
 class Model
 {

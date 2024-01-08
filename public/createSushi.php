@@ -1,4 +1,6 @@
 <?php
-require_once "../src/Controller/CreateController.php";
-$createController = new Controller\CreateController();
+use App\Controller\SushiController;
+
+
+$createController = new SushiController();
 $createController->create();

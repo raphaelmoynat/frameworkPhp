@@ -1,8 +1,9 @@
 <?php
-namespace Controller;
+namespace App\Controller;
 
-require_once "../src/Model/Comment.php";
-require_once "../core/View/View.php";
+
+
+use App\Model\Comment;
 
 class CommentController
 {
@@ -23,7 +24,7 @@ class CommentController
         $commentContent = $_POST['content'];
         $sushiId = $_POST['sushiId'];
 
-        $modelComment = new \Model\Comment();
+        $modelComment = new Comment();
 
         $modelComment->insert($commentContent, $sushiId);
 
@@ -38,7 +39,7 @@ class CommentController
 
         $id = $_GET['id'];
 
-        $modelComment = new \Model\Comment();
+        $modelComment = new Comment();
         $comment = $modelComment->find($id);
         $idSushi = $comment['sushi_id'];
 

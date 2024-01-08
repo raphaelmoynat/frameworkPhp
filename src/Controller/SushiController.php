@@ -1,20 +1,21 @@
 <?php
-namespace Controller;
+namespace App\Controller;
 
-require_once "../src/Model/Sushi.php";
-require_once "../src/Model/Comment.php";
-require_once "../core/View/View.php";
+
+use App\Model\Sushi;
+use App\Model\Comment;
+use Core\View\View;
 
 class SushiController
 {
     public function index()
     {
 
-        $modelSushi = new \Model\Sushi();
+        $modelSushi = new Sushi();
 
         $sushis = $modelSushi->findAll();
 
-        return \View::render("sushi/index", [
+        return View::render("sushi/index", [
             "pageTitle"=>"Les Sushis",
             "sushis"=>$sushis]);
 
@@ -30,11 +31,11 @@ class SushiController
 
         $id = $_GET['id'];
 
-        $modelSushi = new \Model\Sushi();
+        $modelSushi = new Sushi();
 
         $sushi = $modelSushi->find($id);
 
-        $modelComment = new \Model\Comment();
+        $modelComment = new Comment();
 
         $comments = $modelComment->findAllBySushi($id);
 
@@ -42,6 +43,30 @@ class SushiController
             "comments"=>$comments,
             "pageTitle"=> $sushi['poisson'] ]);
     }
+
+    public function create(){
+        if(isset($_POST['type']) &&
+            isset($_POST['description']) &&
+            isset($_POST['poisson'])
+        ){
+            $type = $_POST['type'];
+            $description = $_POST['description'];
+            $poisson = $_POST['poisson'];
+
+            $modelSushi = new Sushi();
+
+            $modelSushi->insert($type, $description, $poisson);
+
+            header("Location: index.php");
+
+
+
+        }
+
+
+        return \View::render("sushi/create", ["pageTitle"=> "nouveau sushi"]);
+    }
+
 
     public function delete(){
 

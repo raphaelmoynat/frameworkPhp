@@ -1,6 +1,6 @@
 <?php
+use App\Controller\SushiController;
 
-require_once "../src/Controller/SushiController.php";
-$deleteController = new Controller\SushiController();
+$deleteController = new SushiController();
 $deleteController->edit();
 

@@ -1,5 +1,5 @@
 <?php
 
-require_once "../src/Controller/SushiController.php";
-$sushiController = new Controller\SushiController();
+use App\Controller\SushiController;
+$sushiController = new SushiController();
 $sushiController->show();
