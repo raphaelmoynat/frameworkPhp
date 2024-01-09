@@ -4,8 +4,6 @@ namespace Core\Http;
 
 class Response
 {
-
-
     public static function redirect(string $route = null)
     {
         if(!$route){

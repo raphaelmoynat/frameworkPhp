@@ -1,9 +1,6 @@
 <?php
 namespace App\Controller;
 
-
-
-
 use App\Repository\CommentRepository;
 use Core\Controller\Controller;
 
